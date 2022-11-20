@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BleTracking.TransiverPage"
+             Title="Transiver">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" 
+                       FontSize="36"
+                       Text="{Binding Source={x:Reference stepperDigit}, Path=Value}"/>
+                <Label Text="{Binding }"/>
+                <Stepper Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"
+                         x:Name="stepperDigit" Value="0"/>
+                <Button Grid.Column="0" Grid.Row="2"
+                    x:Name="btnTransmit" Text="Transmit" Clicked="btnTransmit_Clicked" />
+                <Button Grid.Column="0" Grid.Row="3"
+                    x:Name="btnRecive" Text="Recive" Clicked="btnRecive_Clicked"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
