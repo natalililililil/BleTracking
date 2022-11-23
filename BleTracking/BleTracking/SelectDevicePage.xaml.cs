@@ -30,6 +30,7 @@ namespace BleTracking
             var device = (BluetoothDeviceModel)e.SelectedItem;
             if (device != null)
             {
+                //await Navigation.PushAsync(new Page1());
                 await Navigation.PushAsync(new TransiverPage { BindingContext = device});
             }
 
