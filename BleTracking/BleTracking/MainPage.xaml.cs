@@ -12,6 +12,8 @@ namespace BleTracking
     {
         public MainPage()
         {
+            List<int> f = new List<int>() { 1, 2};
+            Console.WriteLine(f.Where(x => x>2));
             InitializeComponent();
         }
     }

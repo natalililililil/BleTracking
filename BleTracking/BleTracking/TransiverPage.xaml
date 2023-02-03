@@ -18,6 +18,7 @@
                        x:Name="getData"
                        Text="{Binding dataFromESP32}"/>
 
+                <Entry x:Name="entry" Text="I am an Entry" />
 
                 <!--<Label Text="{Binding Name}"/>
                 <Stepper Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"

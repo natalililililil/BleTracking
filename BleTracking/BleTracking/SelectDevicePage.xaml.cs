@@ -35,7 +35,7 @@ namespace BleTracking
             }
 
             //убрать выделение с текущего элемента
-            lvBondedDevices.SelectedItem = null;
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }
