@@ -3,15 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BleTracking.SelectDevicePage"
              Title="Select Device">
+    
+    
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="lvBondedDevices" ItemSelected="lvBondedDevices_ItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Name}" Detail="{Binding Address}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+
+            <Frame HasShadow="True"
+                           CornerRadius="10"
+                           Margin="8,8,8,8">
+                <ListView x:Name="lvBondedDevices" ItemSelected="lvBondedDevices_ItemSelected" 
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Name}" Detail="{Binding Address}" TextColor="#263238"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
+
+
 </ContentPage>
