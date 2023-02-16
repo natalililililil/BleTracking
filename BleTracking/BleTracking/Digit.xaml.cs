@@ -78,9 +78,7 @@
         private string ConvertASCIIToString(byte[] asciiNumber)
         {
             Encoding ascii = Encoding.ASCII;
-
-            String decodedString = ascii.GetString(asciiNumber);
-            return decodedString;
+            return ascii.GetString(asciiNumber);
         }
 
         private void Model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
