@@ -17,13 +17,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="BLEListPage.xaml.cs">
+      <DependentUpon>BLEListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="DigitPage.xaml.cs">
+      <DependentUpon>DigitPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="SelectBluetoothDevice.xaml.cs">
       <DependentUpon>SelectBluetoothDevice.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Digit.xaml">
+    <EmbeddedResource Update="BLEListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DigitPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="SelectBluetoothDevice.xaml">

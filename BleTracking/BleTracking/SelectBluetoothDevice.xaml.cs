@@ -75,7 +75,10 @@
                 var connected = await TryConnect(bluetoothDeviceModel);
                 if (connected)
                 {
-                    await Navigation.PushAsync(new DigitPage());
+                    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
+                        await Navigation.PushAsync(new BLEListPage());
+                    else
+                        await Navigation.PushAsync(new DigitPage());
                 }
             }
         }
