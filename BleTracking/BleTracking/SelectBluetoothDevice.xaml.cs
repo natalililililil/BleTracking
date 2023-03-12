@@ -15,6 +15,10 @@
         {
             _bluetoothAdapter = DependencyService.Resolve<IBluetoothAdapter>();
             InitializeComponent();
+            //this.InitializeComponent();
+            //this.BindingContext = this;
+            this.IsBusy = false;
+            
         }
 
         private void RefreshUI()
@@ -69,6 +73,7 @@
         {
             BluetoothDeviceModel bluetoothDeviceModel = e.SelectedItem as BluetoothDeviceModel;
             lvBluetoothBoundedDevices.SelectedItem = null;
+            this.IsBusy = true;
 
             if (bluetoothDeviceModel != null)
             {

@@ -36,6 +36,7 @@ namespace BleTracking
 
             //убрать выделение с текущего элемента
             ((ListView)sender).SelectedItem = null;
+
         }
     }
 }

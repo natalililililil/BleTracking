@@ -30,7 +30,6 @@
 
             //Users = new List<string> { "Tom", "Bob", "Sam", "Alice" };
             //BindingContext = this;
-
         }
 
         ~DigitPage()

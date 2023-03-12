@@ -17,7 +17,7 @@
                     VerticalOptions="Start" 
                     HorizontalOptions="Fill"
                     BackgroundColor="{Binding ConnectionStateBackgroundColor}">
-                            <Label x:Name="lblConnectionStatus"
+                    <Label x:Name="lblConnectionStatus"
                            HeightRequest="32"
                            TextColor="White"
                            FontSize="Medium"

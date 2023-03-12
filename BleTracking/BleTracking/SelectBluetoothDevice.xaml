@@ -11,6 +11,7 @@
                            CornerRadius="10"
                            Margin="8,8,8,8">
             <StackLayout>
+
                 <ListView x:Name="lvBluetoothBoundedDevices" ItemSelected="lvBluetoothBoundedDevices_ItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -18,7 +19,9 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
                 
+                <!--<ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue"/>-->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
