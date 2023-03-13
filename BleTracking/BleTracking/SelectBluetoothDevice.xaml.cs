@@ -1,5 +1,6 @@
 ﻿namespace BleTracking
 {
+    using BleTracking.Pages;
     using Plugin.BluetoothClassic.Abstractions;
     using System;
     using System.Threading.Tasks;
@@ -14,11 +15,7 @@
         public SelectBluetoothRemoteDevicePage()
         {
             _bluetoothAdapter = DependencyService.Resolve<IBluetoothAdapter>();
-            InitializeComponent();
-            //this.InitializeComponent();
-            //this.BindingContext = this;
-            this.IsBusy = false;
-            
+            InitializeComponent();   
         }
 
         private void RefreshUI()
@@ -73,18 +70,23 @@
         {
             BluetoothDeviceModel bluetoothDeviceModel = e.SelectedItem as BluetoothDeviceModel;
             lvBluetoothBoundedDevices.SelectedItem = null;
-            this.IsBusy = true;
+
+            //await DisplayAlert("Подтвердить действие", "Вы хотите удалить элемент?", "Да", "Нет");
 
             if (bluetoothDeviceModel != null)
             {
                 var connected = await TryConnect(bluetoothDeviceModel);
+                //await Navigation.PushAsync(new LoadingPage());
+
                 if (connected)
-                {
-                    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
-                        await Navigation.PushAsync(new BLEListPage());
-                    else
-                        await Navigation.PushAsync(new DigitPage());
-                }
+                    await Navigation.PushAsync(new DigitPage());
+                //if (connected)
+                //{
+                //    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
+                //        await Navigation.PushAsync(new BLEListPage());
+                //    else
+                //        await Navigation.PushAsync(new DigitPage());
+                //}
             }
         }
 

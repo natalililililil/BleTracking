@@ -1,10 +1,12 @@
 ﻿namespace BleTracking
 {
+    using BleTracking.Pages;
     using BleTracking.ViewModel;
     using Plugin.BluetoothClassic.Abstractions;
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using System.Threading.Tasks;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 
@@ -23,38 +25,50 @@
 
             if (App.CurrentBluetoothConnection != null)
             {
-                App.CurrentBluetoothConnection.OnStateChanged += CurrentBluetoothConnection_OnStateChanged;
+                App.CurrentBluetoothConnection.OnStateChanged += CurrentBluetoothConnection_OnStateChangedAsync;
                 App.CurrentBluetoothConnection.OnRecived += CurrentBluetoothConnection_OnRecived;
                 App.CurrentBluetoothConnection.OnError += CurrentBluetoothConnection_OnError;
             }
 
             //Users = new List<string> { "Tom", "Bob", "Sam", "Alice" };
             //BindingContext = this;
+
+            //DisplayAlert("Уведомление", model.ConnectionState.ToString(), "ОK");
         }
 
         ~DigitPage()
         {
             if (App.CurrentBluetoothConnection != null)
             {
-                App.CurrentBluetoothConnection.OnStateChanged -= CurrentBluetoothConnection_OnStateChanged;
+                App.CurrentBluetoothConnection.OnStateChanged -= CurrentBluetoothConnection_OnStateChangedAsync;
                 App.CurrentBluetoothConnection.OnRecived -= CurrentBluetoothConnection_OnRecived;
                 App.CurrentBluetoothConnection.OnError -= CurrentBluetoothConnection_OnError;
             }
         }
 
-        private void CurrentBluetoothConnection_OnStateChanged(object sender, StateChangedEventArgs stateChangedEventArgs)
+        private async void CurrentBluetoothConnection_OnStateChangedAsync(object sender, StateChangedEventArgs stateChangedEventArgs)
         {
             var model = (DigitViewModel)BindingContext;
             if (model != null)
             {
                 model.ConnectionState = stateChangedEventArgs.ConnectionState;
-            }
+
+
+                //DisplayAlert("Уведомление", model.ConnectionState.ToString(), "ОK");
+                if (model.ConnectionState == ConnectionState.Connected)
+                    await Navigation.PushAsync(new TerminalPage());
+            }        
         }
 
         private void CurrentBluetoothConnection_OnRecived(object sender, Plugin.BluetoothClassic.Abstractions.RecivedEventArgs recivedEventArgs)
         {
+            //var terminal = new TerminalPage();
+            //terminal.CurrentBluetoothConnection_OnRecived(sender, recivedEventArgs);
+
+            //await Navigation.PushAsync(new TerminalPage());
+
             DigitViewModel model = (DigitViewModel)BindingContext;
-            
+
             if (model != null)
             {
                 model.SetReciving();
@@ -62,7 +76,7 @@
                 for (int index = 0; index < recivedEventArgs.Buffer.Length; index++)
                 {
                     byte value = recivedEventArgs.Buffer.ToArray()[index];
-                    byte[] valueArray = new byte[] {value};
+                    byte[] valueArray = new byte[] { value };
                     model.Digit += ConvertASCIIToString(valueArray);
                     //data += value.ToString();
                     //RecivedDataList.Add(value);
