@@ -11,8 +11,8 @@ namespace BleTracking
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new SelectBluetoothRemoteDevicePage());
+            MainPage = new MainPage();
+            //MainPage = new NavigationPage(new SelectBluetoothRemoteDevicePage());
         }
 
         protected override void OnStart()
