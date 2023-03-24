@@ -13,10 +13,9 @@
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DigitPage : ContentPage
     {
-        public List<byte> RecivedDataList { get; set; } = new List<byte>();
-        public List<string> Users { get; set; }
-        public string data = "";
-        public DigitPage()
+
+        private readonly BluetoothDeviceModel bluetoothDeviceModel;
+        public DigitPage(BluetoothDeviceModel bluetoothDeviceModel)
         {
             InitializeComponent();
 
@@ -30,6 +29,7 @@
                 App.CurrentBluetoothConnection.OnError += CurrentBluetoothConnection_OnError;
             }
 
+            this.bluetoothDeviceModel = bluetoothDeviceModel;
             //Users = new List<string> { "Tom", "Bob", "Sam", "Alice" };
             //BindingContext = this;
 
@@ -53,20 +53,34 @@
             {
                 model.ConnectionState = stateChangedEventArgs.ConnectionState;
 
-
-                //DisplayAlert("Уведомление", model.ConnectionState.ToString(), "ОK");
+                //await NagigateToCurrentPage(model.ConnectionState);
                 if (model.ConnectionState == ConnectionState.Connected)
-                    await Navigation.PushAsync(new TerminalPage());
+                {
+                    await Navigation.PushAsync(new TerminalPage(bluetoothDeviceModel));
+                    //await Navigation.PushAsync(new BLEListPage());
+                    //await Navigation.PushAsync(new TerminalPage());
+                    //if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
+                    //  await Navigation.PushAsync(new ESP32Page());
+                    //else
+                    //    await Navigation.PushAsync(new TerminalPage());
+                }
+
             }        
+        }
+
+        private async Task NagigateToCurrentPage(ConnectionState connectionState)
+        {
+            //if (connectionState == ConnectionState.Connected)
+            //{
+            //    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
+            //        await Navigation.PushAsync(new BLEListPage(bluetoothDeviceModel));
+            //    else
+            //        await Navigation.PushAsync(new TerminalPage());
+            //}
         }
 
         private void CurrentBluetoothConnection_OnRecived(object sender, Plugin.BluetoothClassic.Abstractions.RecivedEventArgs recivedEventArgs)
         {
-            //var terminal = new TerminalPage();
-            //terminal.CurrentBluetoothConnection_OnRecived(sender, recivedEventArgs);
-
-            //await Navigation.PushAsync(new TerminalPage());
-
             DigitViewModel model = (DigitViewModel)BindingContext;
 
             if (model != null)

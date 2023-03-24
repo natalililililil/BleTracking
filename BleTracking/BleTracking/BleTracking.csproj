@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="BLEListPage.xaml.cs">
+    <Compile Update="Pages\BLEListPage.xaml.cs">
       <DependentUpon>BLEListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="DigitPage.xaml.cs">
+    <Compile Update="Pages\DigitPage.xaml.cs">
       <DependentUpon>DigitPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="SelectBluetoothDevice.xaml.cs">
@@ -29,19 +29,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="BLEListPage.xaml">
+    <EmbeddedResource Update="Pages\BLEListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="DigitPage.xaml">
+    <EmbeddedResource Update="Pages\DigitPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\ESP32Page.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="SelectBluetoothDevice.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="SelectDevicePage.xaml">
+    <EmbeddedResource Update="Pages\SelectDevicePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="TransiverPage.xaml">
+    <EmbeddedResource Update="Pages\TransiverPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

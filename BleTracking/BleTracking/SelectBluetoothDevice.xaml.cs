@@ -79,7 +79,7 @@
                 //await Navigation.PushAsync(new LoadingPage());
 
                 if (connected)
-                    await Navigation.PushAsync(new DigitPage());
+                    await Navigation.PushAsync(new DigitPage(bluetoothDeviceModel));
                 //if (connected)
                 //{
                 //    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")

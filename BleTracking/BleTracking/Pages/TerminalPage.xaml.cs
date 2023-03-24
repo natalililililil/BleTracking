@@ -1,4 +1,5 @@
 ﻿using BleTracking.ViewModel;
+using Plugin.BluetoothClassic.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace BleTracking.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TerminalPage : ContentPage
     {
-        public TerminalPage()
+        BluetoothDeviceModel bluetoothDeviceModel;
+        public TerminalPage(BluetoothDeviceModel bluetoothDeviceModel)
         {
             InitializeComponent();
 
@@ -21,8 +23,17 @@ namespace BleTracking.Pages
             {
                 App.CurrentBluetoothConnection.OnRecived += CurrentBluetoothConnection_OnRecived;
             }
+
+            this.bluetoothDeviceModel = bluetoothDeviceModel;
+            //CheckConnection(bluetoothDeviceModel);
+            
         }
 
+        private async Task CheckConnection(BluetoothDeviceModel bluetoothDeviceModel)
+        {
+            if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
+                await Navigation.PushAsync(new BLEListPage());
+        }
         ~TerminalPage()
         {
             App.CurrentBluetoothConnection.OnRecived -= CurrentBluetoothConnection_OnRecived;

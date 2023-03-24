@@ -7,18 +7,16 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BleTracking
+namespace BleTracking.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BLEListPage : ContentPage
+    public partial class ESP32Page : ContentPage
     {
-        public BLEListPage()
+        public ESP32Page()
         {
             InitializeComponent();
         }
-        private async void SwitchToTerminal_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new DigitPage());
-        }
+
+        
     }
 }
