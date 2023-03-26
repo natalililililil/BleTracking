@@ -6,12 +6,6 @@
              mc:Ignorable="d"
              x:Class="BleTracking.SelectBluetoothRemoteDevicePage"
              Title="Select device:">
-    
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add"
-                     Clicked="FlyoutButton_Clicked" />
-    </ContentPage.ToolbarItems>
-    
     <ContentPage.Content>
         <Frame HasShadow="True"
                            CornerRadius="10"

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="BleTracking.Pages.ConnectionPage"
+                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"  
+                 xmlns:local="clr-namespace:BleTracking"  
+                 InputTransparent="False"  
+                 HasSystemPadding="True"  
+                 CloseWhenBackgroundIsClicked="True"  
+                 Padding="20,100">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation  
+                 PositionIn="Center"  
+                 PositionOut="Center"/>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="15" OutlineColor="Black" HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout HorizontalOptions="FillAndExpand" >
+
+            <Label Text="In Progress" TextColor="Black" FontSize="Large"/>
+            <BoxView HeightRequest="1" BackgroundColor="Gray"/>
+            <StackLayout Spacing="0" Orientation="Horizontal">
+                <ActivityIndicator  Color="Blue"  
+                                        IsRunning="True"  
+                                        IsEnabled="True"  
+                                        VerticalOptions="Center"  
+                                        HorizontalOptions="Center"  
+                                        HeightRequest="70"  
+                                        WidthRequest="70"/>
+                <Label Text="Loading......" TextColor="Black" FontSize="Large"/>
+            </StackLayout>
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

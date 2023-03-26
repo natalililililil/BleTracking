@@ -1,6 +1,5 @@
 ﻿namespace BleTracking
 {
-    using BleTracking.Navigation_Drawer;
     using BleTracking.Pages;
     using Plugin.BluetoothClassic.Abstractions;
     using System;
@@ -122,12 +121,6 @@
                 return NotConnected;
             }
 
-        }
-
-        private async void FlyoutButton_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new FlyoutMainPageFlyout());
-            //await Shell.Current.GoToAsync(nameof(FlyoutMainPageFlyout));
         }
     }
 }

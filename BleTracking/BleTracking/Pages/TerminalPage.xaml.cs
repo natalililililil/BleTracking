@@ -29,11 +29,11 @@ namespace BleTracking.Pages
             
         }
 
-        private async Task CheckConnection(BluetoothDeviceModel bluetoothDeviceModel)
-        {
-            if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
-                await Navigation.PushAsync(new BLEListPage());
-        }
+        //private async Task CheckConnection(BluetoothDeviceModel bluetoothDeviceModel)
+        //{
+        //    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
+        //        await Navigation.PushAsync(new BLEListPage());
+        //}
         ~TerminalPage()
         {
             App.CurrentBluetoothConnection.OnRecived -= CurrentBluetoothConnection_OnRecived;

@@ -54,16 +54,16 @@
                 model.ConnectionState = stateChangedEventArgs.ConnectionState;
 
                 //await NagigateToCurrentPage(model.ConnectionState);
-                if (model.ConnectionState == ConnectionState.Connected)
-                {
-                    await Navigation.PushAsync(new TerminalPage(bluetoothDeviceModel));
-                    //await Navigation.PushAsync(new BLEListPage());
-                    //await Navigation.PushAsync(new TerminalPage());
-                    //if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
-                    //  await Navigation.PushAsync(new ESP32Page());
-                    //else
-                    //    await Navigation.PushAsync(new TerminalPage());
-                }
+                //if (model.ConnectionState == ConnectionState.Connected)
+                //{
+                //    await Navigation.PushAsync(new TerminalPage(bluetoothDeviceModel));
+                //    //await Navigation.PushAsync(new BLEListPage());
+                //    //await Navigation.PushAsync(new TerminalPage());
+                //    //if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
+                //    //  await Navigation.PushAsync(new ESP32Page());
+                //    //else
+                //    //    await Navigation.PushAsync(new TerminalPage());
+                //}
 
             }        
         }
