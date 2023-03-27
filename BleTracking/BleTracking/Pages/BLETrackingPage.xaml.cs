@@ -24,7 +24,7 @@ namespace BleTracking.Pages
         public BLETrackingPage()
         {
             _bluetoothAdapter = DependencyService.Resolve<IBluetoothAdapter>();
-            InitializeComponent();          
+            InitializeComponent();                       
         }
 
         private void RefreshUI()
@@ -58,6 +58,13 @@ namespace BleTracking.Pages
 
         protected override async void OnAppearing()
         {
+            if (!_bluetoothAdapter.Enabled)
+            {
+                bool result = await DisplayAlert("The app needs bluetooth to work", "Do you want to turn it on?", "Yes", "No");
+                if (result)
+                    _bluetoothAdapter.Enable();
+            }
+
             RefreshUI();
             await DisconnectIfConnectedAsync();
         }
