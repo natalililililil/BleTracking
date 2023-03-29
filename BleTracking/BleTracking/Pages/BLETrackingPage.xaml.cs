@@ -44,18 +44,6 @@ namespace BleTracking.Pages
             }
         }
 
-        //private void btnEnableBluetooth_Clicked(object sender, EventArgs e)
-        //{
-        //    _bluetoothAdapter.Enable();
-        //    RefreshUI();
-        //}
-
-        //private void btnDisableBluetooth_Clicked(object sender, EventArgs e)
-        //{
-        //    _bluetoothAdapter.Disable();
-        //    RefreshUI();
-        //}
-
         protected override async void OnAppearing()
         {
             if (!_bluetoothAdapter.Enabled)
@@ -89,7 +77,7 @@ namespace BleTracking.Pages
             var connected = await TryConnect(microcontrollerESP);
 
             if (connected)
-                await Navigation.PushAsync(new DigitPage(microcontrollerESP));
+                await Navigation.PushAsync(new TerminalPage(microcontrollerESP));
         }
 
         private async Task<bool> TryConnect(BluetoothDeviceModel bluetoothDeviceModel)

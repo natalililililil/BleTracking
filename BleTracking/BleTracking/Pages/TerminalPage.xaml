@@ -11,7 +11,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                
+                <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
                 <Label Grid.Column="0" Grid.Row="0" VerticalOptions="Start" FontSize="Large"
                        Text="{Binding Digit, StringFormat='Data: {0}'}"/>
             </StackLayout>

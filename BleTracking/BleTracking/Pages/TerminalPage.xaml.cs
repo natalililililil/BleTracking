@@ -1,4 +1,5 @@
-﻿using BleTracking.ViewModel;
+﻿using BleTracking.ESP32Data;
+using BleTracking.ViewModel;
 using Plugin.BluetoothClassic.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -15,37 +16,37 @@ namespace BleTracking.Pages
     public partial class TerminalPage : ContentPage
     {
         BluetoothDeviceModel bluetoothDeviceModel;
+        private List<BLEDevice> bLEDevices = new List<BLEDevice>();
         public TerminalPage(BluetoothDeviceModel bluetoothDeviceModel)
         {
             InitializeComponent();
 
             if (App.CurrentBluetoothConnection != null)
             {
+                App.CurrentBluetoothConnection.OnStateChanged += CurrentBluetoothConnection_OnStateChanged;
                 App.CurrentBluetoothConnection.OnRecived += CurrentBluetoothConnection_OnRecived;
             }
 
             this.bluetoothDeviceModel = bluetoothDeviceModel;
-            //CheckConnection(bluetoothDeviceModel);
-            
         }
 
-        //private async Task CheckConnection(BluetoothDeviceModel bluetoothDeviceModel)
-        //{
-        //    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
-        //        await Navigation.PushAsync(new BLEListPage());
-        //}
         ~TerminalPage()
         {
+            App.CurrentBluetoothConnection.OnStateChanged -= CurrentBluetoothConnection_OnStateChanged;
             App.CurrentBluetoothConnection.OnRecived -= CurrentBluetoothConnection_OnRecived;
+        }
+
+        private void CurrentBluetoothConnection_OnStateChanged(object sender, StateChangedEventArgs stateChangedEventArgs)
+        {
+            var model = (DigitViewModel)BindingContext;
+            if (model != null)
+            {
+                model.ConnectionState = stateChangedEventArgs.ConnectionState;
+            }
         }
 
         private void CurrentBluetoothConnection_OnRecived(object sender, Plugin.BluetoothClassic.Abstractions.RecivedEventArgs recivedEventArgs)
         {
-            //var terminal = new TerminalPage();
-            //terminal.CurrentBluetoothConnection_OnRecived(sender, recivedEventArgs);
-
-            //await Navigation.PushAsync(new TerminalPage());
-
             DigitViewModel model = (DigitViewModel)BindingContext;
 
             if (model != null)
@@ -57,10 +58,6 @@ namespace BleTracking.Pages
                     byte value = recivedEventArgs.Buffer.ToArray()[index];
                     byte[] valueArray = new byte[] { value };
                     model.Digit += ConvertASCIIToString(valueArray);
-                    //data += value.ToString();
-                    //RecivedDataList.Add(value);
-                    //model.Digit += " " + value.ToString();
-
                 }
 
                 model.SetRecived();
