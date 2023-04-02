@@ -8,7 +8,7 @@ namespace BleTracking.ESP32Data
     {
         public string Address { get; set; }
         public string Name { get; set; }
-        public int[] Rssi { get; set; }
+        public List<int> Rssi { get; set; }
         //public int[] Distance { get; set; }
     }
 }
