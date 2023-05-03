@@ -10,7 +10,7 @@
     
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Click" Clicked="Loader_Clicked"/>
+            <Button Text="Подключиться" Clicked="Loader_Clicked"/>
             <!--
             <ListView x:Name="lvBluetoothBoundedDevices" ItemSelected="lvBluetoothBoundedDevices_ItemSelected">
                 <ListView.ItemTemplate>

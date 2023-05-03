@@ -84,7 +84,8 @@ namespace BleTracking.Pages
             if (amoutOfDataFromOneDevice <= receiveData.Length && indexOfSubstring != -1)
             {
                 string device = receiveData.ToString().Substring(0, amoutOfDataFromOneDevice);
-                TramsformStringToBLEDeviceInstance(device);
+                var newDevice = TramsformStringToBLEDeviceInstance(device);
+                AddNewBLEDevice(newDevice);
                 numberOfReceiveCharUsed += amoutOfDataFromOneDevice;
             }
         }
@@ -104,7 +105,7 @@ namespace BleTracking.Pages
             return indexOfSubstring + endOfOneDeviceResponse.Length + 4;
         }
 
-        private void TramsformStringToBLEDeviceInstance(string fullDataFromDevice)
+        private BLEDevice TramsformStringToBLEDeviceInstance(string fullDataFromDevice)
         {
             try
             {
@@ -130,11 +131,30 @@ namespace BleTracking.Pages
 
                 device.Address = address;
                 device.Name = name;
-                device.Rssi = tempRssiList; 
+                device.Rssi = tempRssiList;
 
-                bLEDevices.Add(device);
+                return device;
+                //bLEDevices.Add(device);
             }
-            catch (Exception e) { }           
+            catch (Exception e) {
+                return null;
+            }           
+        }
+
+        private void AddNewBLEDevice(BLEDevice device)
+        {
+            if (bLEDevices.Count > 0)
+            {
+                foreach (var item in bLEDevices)
+                {
+                    if (device.Address == item.Address)
+                    {
+                        item.Rssi.Add(device.Rssi[0]);
+                        return;
+                    }
+                }
+            }
+            bLEDevices.Add(device);
         }
     }
 }
