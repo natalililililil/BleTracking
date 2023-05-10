@@ -7,19 +7,11 @@ using SQLiteNetExtensions.Attributes;
 namespace BleTracking.Models
 {
     [Table("Device")]
-    public class DeviceModel
+    public class DeviceModel : Model
     {
-        [PrimaryKey, AutoIncrement, Column("DeviceId")]
-        public int DeviceId { get; set; }
-
-        [Column("Address")]
         public string Address { get; set; }
-
-        [Column("Name")]
-        public string Name { get; set; }
-
-        [Column("Distance")]     
-        public int Distance { get; set; }
+        public string Name { get; set; }  
+        public double Distance { get; set; }
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<RssiModel> RssiValues { get; set; }

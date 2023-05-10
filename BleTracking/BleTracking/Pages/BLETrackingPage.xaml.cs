@@ -13,6 +13,7 @@ using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Events;
 using Plugin.BluetoothClassic.Abstractions;
 using BleTracking.ViewModel;
+using BleTracking.Models;
 
 namespace BleTracking.Pages
 {
@@ -23,10 +24,15 @@ namespace BleTracking.Pages
         private BluetoothDeviceModel microcontrollerESP = new BluetoothDeviceModel("C8:F0:9E:51:40:DA", "CL-BLE-40D8");
         public BLETrackingPage()
         {
+            //Task.Run(() => ShowReceiveData());
             _bluetoothAdapter = DependencyService.Resolve<IBluetoothAdapter>();
             InitializeComponent();                       
         }
 
+        private async Task ShowReceiveData()
+        {
+            collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
+        }
         private void RefreshUI()
         {
             if (_bluetoothAdapter.Enabled)
@@ -48,10 +54,11 @@ namespace BleTracking.Pages
         {
             if (!_bluetoothAdapter.Enabled)
             {
-                bool result = await DisplayAlert("The app needs bluetooth to work", "Do you want to turn it on?", "Yes", "No");
+                bool result = await DisplayAlert("Приложению нужен bluetooth для работы", "Хотите включить его?", "Да", "Нет");
                 if (result)
                     _bluetoothAdapter.Enable();
             }
+            collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
 
             RefreshUI();
             await DisconnectIfConnectedAsync();
@@ -77,7 +84,7 @@ namespace BleTracking.Pages
             var connected = await TryConnect(microcontrollerESP);
 
             if (connected)
-                await Navigation.PushAsync(new TerminalPage(microcontrollerESP));
+                await Navigation.PushAsync(new TerminalPage());
         }
 
         private async Task<bool> TryConnect(BluetoothDeviceModel bluetoothDeviceModel)
@@ -123,5 +130,23 @@ namespace BleTracking.Pages
             //await PopupNavigation.Instance.RemovePageAsync(loadingPage);
         }
 
+        private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.CurrentSelection != null)
+            {
+                DeviceModel device = e.CurrentSelection.FirstOrDefault() as DeviceModel;
+
+                if (device!= null)
+                {
+                    var connected = await TryConnect(microcontrollerESP);
+
+                    if (connected)
+                        await Navigation.PushAsync(new CurrentDevicePage(device.Address, device.Id));
+                }               
+                //await Shell.Current.GoToAsync(
+                //    $"{nameof(CurrentDevicePage)}?{nameof(CurrentDevicePage.ItemId)}={device.Id.ToString()}");
+            }
+        }
+        
     }
 }

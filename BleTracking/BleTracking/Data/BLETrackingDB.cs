@@ -16,10 +16,11 @@ namespace BleTracking.Data
             db = new SQLiteAsyncConnection(connectionString);
 
             db.CreateTableAsync<DeviceModel>().Wait();
+            db.CreateTableAsync<RssiModel>().Wait();
         }
 
         public Task<List<DeviceModel>> GetDevicesAsync()
-        {
+        {           
             // получения списка с записями
             return db.Table<DeviceModel>().ToListAsync();
         }
@@ -28,13 +29,35 @@ namespace BleTracking.Data
         {
             // получение конкретной записки
             return db.Table<DeviceModel>()
-                .Where(i => i.DeviceId == id)
+                .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        public Task<int> SaveDevicesAcync(DeviceModel device)
+        public Task<DeviceModel> GetDevicesAsync(string address)
         {
-            if (device.DeviceId != 0)
+            // получение конкретной записки
+            return db.Table<DeviceModel>()
+                .Where(i => i.Address == address)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task<List<RssiModel>> GetRssiValuesAsync()
+        {
+            // получения списка с записями
+            return db.Table<RssiModel>().ToListAsync();
+        }
+
+        public Task<RssiModel> GetRssiValuesAsync(int id)
+        {
+            // получение конкретной записки
+            return db.Table<RssiModel>()
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveDataAsync(Model device)
+        {
+            if (device.Id != 0)
             {
                 return db.UpdateAsync(device);
             }
@@ -44,7 +67,7 @@ namespace BleTracking.Data
             }
         }
 
-        public Task<int> DeteleDeviceAsync(DeviceModel device)
+        public Task<int> DeteleDataAsync(Model device)
         {
             return db.DeleteAsync(device);
         }

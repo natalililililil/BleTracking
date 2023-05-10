@@ -68,17 +68,6 @@
             }        
         }
 
-        private async Task NagigateToCurrentPage(ConnectionState connectionState)
-        {
-            //if (connectionState == ConnectionState.Connected)
-            //{
-            //    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
-            //        await Navigation.PushAsync(new BLEListPage(bluetoothDeviceModel));
-            //    else
-            //        await Navigation.PushAsync(new TerminalPage());
-            //}
-        }
-
         private void CurrentBluetoothConnection_OnRecived(object sender, Plugin.BluetoothClassic.Abstractions.RecivedEventArgs recivedEventArgs)
         {
             DigitViewModel model = (DigitViewModel)BindingContext;
