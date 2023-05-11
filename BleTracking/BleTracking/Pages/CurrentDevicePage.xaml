@@ -9,14 +9,17 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
-            <Label FontSize="Large" VerticalOptions="End" Text="{Binding Distance, StringFormat='Current value is:{0}'}" TextColor="Black"/>
+            
+            <Label FontSize="Large" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="{Binding Distance}" TextColor="Black"/>
         </StackLayout>
     </ContentPage.Content>
 
 
    
     <!--
+    
+    <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
+    
     <Label Text="{Binding Id}"
                                        FontSize="Medium" 
                                        TextColor="#263238"/>

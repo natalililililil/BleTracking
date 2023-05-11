@@ -15,7 +15,7 @@ namespace BleTracking.ViewModel
         public enum Properties
         {
             Distance,
-            ConnectionState
+            //ConnectionState
         }
 
         public const string DigitDefault = "";
@@ -27,7 +27,7 @@ namespace BleTracking.ViewModel
         public DistanceViewModel()
         {
             SetRecived();
-            UpdateConnectionStateBackgroundColor();
+            //UpdateConnectionStateBackgroundColor();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -36,21 +36,6 @@ namespace BleTracking.ViewModel
 
         public string Distance
         {
-            //get
-            //{
-            //    return _digitList;
-            //}
-            //set
-            //{
-
-            //    if (_digitList != value)
-            //    {
-            //        _digitList.Add(_digit);
-            //        //_digit = value;
-
-            //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Digit"));
-            //    }
-            //}
             get
             {
                 return _digit;
@@ -66,60 +51,60 @@ namespace BleTracking.ViewModel
             }
         }
 
-        public ConnectionState ConnectionState
-        {
-            get
-            {
-                return _connectionState;
-            }
-            set
-            {
-                if (_connectionState != value)
-                {
-                    _connectionState = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ConnectionState"));
-                    UpdateConnectionStateBackgroundColor();
-                }
-            }
-        }
+        //public ConnectionState ConnectionState
+        //{
+        //    get
+        //    {
+        //        return _connectionState;
+        //    }
+        //    set
+        //    {
+        //        if (_connectionState != value)
+        //        {
+        //            _connectionState = value;
+        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ConnectionState"));
+        //            UpdateConnectionStateBackgroundColor();
+        //        }
+        //    }
+        //}
 
-        private void UpdateConnectionStateBackgroundColor()
-        {
-            switch (ConnectionState)
-            {
-                case ConnectionState.Created:
-                case ConnectionState.Initializing:
-                case ConnectionState.Connecting:
-                    ConnectionStateBackgroundColor = Color.Orange;
-                    break;
-                case ConnectionState.Connected:
-                    ConnectionStateBackgroundColor = Color.SeaGreen;
-                    break;
-                case ConnectionState.ErrorOccured:
-                case ConnectionState.Reconnecting:
-                    ConnectionStateBackgroundColor = Color.Red;
-                    break;
-                default:
-                    ConnectionStateBackgroundColor = Color.Black;
-                    break;
-            }
-        }
+        //private void UpdateConnectionStateBackgroundColor()
+        //{
+        //    switch (ConnectionState)
+        //    {
+        //        case ConnectionState.Created:
+        //        case ConnectionState.Initializing:
+        //        case ConnectionState.Connecting:
+        //            ConnectionStateBackgroundColor = Color.Orange;
+        //            break;
+        //        case ConnectionState.Connected:
+        //            ConnectionStateBackgroundColor = Color.SeaGreen;
+        //            break;
+        //        case ConnectionState.ErrorOccured:
+        //        case ConnectionState.Reconnecting:
+        //            ConnectionStateBackgroundColor = Color.Red;
+        //            break;
+        //        default:
+        //            ConnectionStateBackgroundColor = Color.Black;
+        //            break;
+        //    }
+        //}
 
-        public Color ConnectionStateBackgroundColor
-        {
-            get
-            {
-                return _connectionStateBackgroundColor;
-            }
-            set
-            {
-                if (_connectionStateBackgroundColor != value)
-                {
-                    _connectionStateBackgroundColor = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ConnectionStateBackgroundColor"));
-                }
-            }
-        }
+        //public Color ConnectionStateBackgroundColor
+        //{
+        //    get
+        //    {
+        //        return _connectionStateBackgroundColor;
+        //    }
+        //    set
+        //    {
+        //        if (_connectionStateBackgroundColor != value)
+        //        {
+        //            _connectionStateBackgroundColor = value;
+        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ConnectionStateBackgroundColor"));
+        //        }
+        //    }
+        //}
 
         internal void SetReciving()
         {

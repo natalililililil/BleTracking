@@ -23,12 +23,9 @@ namespace BleTracking.Pages
         DeviceModel deviceModel = new DeviceModel();
         RssiModel rssiModel = new RssiModel();
         List<RssiModel> rssiList = new List<RssiModel>();
-
-
+        StringBuilder tempModelDistance = new StringBuilder();
         private int Id { get; set; }
         private string Address { get; set; }
-
-
 
         public CurrentDevicePage(string address, int id)
         {
@@ -39,32 +36,33 @@ namespace BleTracking.Pages
 
             if (App.CurrentBluetoothConnection != null)
             {
-                App.CurrentBluetoothConnection.OnStateChanged += CurrentBluetoothConnection_OnStateChanged;
+                //App.CurrentBluetoothConnection.OnStateChanged += CurrentBluetoothConnection_OnStateChanged;
                 App.CurrentBluetoothConnection.OnRecived += CurrentBluetoothConnection_OnRecived;
             }
 
             Address = address;
             Id = id;
         }
-        protected override async void OnAppearing()
-        {
 
-            //collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
-            //var tempDevice =  await App.BLETrackingDB.GetDevicesAsync(Address);
-            //distance.Text = deviceModel.Distance.ToString();
-            base.OnAppearing();
-        }
+        //protected override async void OnAppearing()
+        //{
 
-        private void CurrentBluetoothConnection_OnStateChanged(object sender, StateChangedEventArgs stateChangedEventArgs)
-        {
-            var model = (DistanceViewModel)BindingContext;
-            if (model != null)
-            {
-                model.ConnectionState = stateChangedEventArgs.ConnectionState;
-            }
-        }
+        //    //collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
+        //    //var tempDevice =  await App.BLETrackingDB.GetDevicesAsync(Address);
+        //    //distance.Text = deviceModel.Distance.ToString();
+        //    base.OnAppearing();
+        //}
 
-        public void CurrentBluetoothConnection_OnRecived(object sender, Plugin.BluetoothClassic.Abstractions.RecivedEventArgs recivedEventArgs)
+        //private void CurrentBluetoothConnection_OnStateChanged(object sender, StateChangedEventArgs stateChangedEventArgs)
+        //{
+        //    var model = (DistanceViewModel)BindingContext;
+        //    if (model != null)
+        //    {
+        //        model.ConnectionState = stateChangedEventArgs.ConnectionState;
+        //    }
+        //}
+
+        public async void CurrentBluetoothConnection_OnRecived(object sender, Plugin.BluetoothClassic.Abstractions.RecivedEventArgs recivedEventArgs)
         {
             DistanceViewModel model = (DistanceViewModel)BindingContext;
             StringBuilder tempReceiveData = new StringBuilder();
@@ -82,16 +80,18 @@ namespace BleTracking.Pages
                     byte value = recivedEventArgs.Buffer.ToArray()[index];
                     byte[] valueArray = new byte[] { value };
                     //distanceViewModel.Digit += ConvertASCIIToString(valueArray);
-                    model.Distance += ConvertASCIIToString(valueArray);
+                    tempModelDistance.Append(ConvertASCIIToString(valueArray));
 
                     if (index == recivedEventArgs.Buffer.Length - 1)
-                        tempReceiveData.Append(model.Distance);
+                        tempReceiveData.Append(tempModelDistance);
                     //tempReceiveData.Append(distanceViewModel.Digit);
 
                 }
 
                 CreateListOfBLEDevices(tempReceiveData);
 
+                var tempDevice = await App.BLETrackingDB.GetDevicesAsync(Address);
+                model.Distance = tempDevice.Distance.ToString();
                 //distanceViewModel.SetRecived();
                 //collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
                 model.SetRecived();
@@ -130,6 +130,7 @@ namespace BleTracking.Pages
 
         private void CreateListOfBLEDevices(StringBuilder tempReceiveData)
         {
+            
             UpdateReceiveData(tempReceiveData);
 
             int amoutOfDataFromOneDevice = GetEndIndexOfBLEDeviceResponse(out int indexOfSubstring);
@@ -140,6 +141,7 @@ namespace BleTracking.Pages
                 var newDevice = TramsformStringToBLEDeviceInstance(device);
                 //AddNewBLEDevice(newDevice);
                 Add(newDevice);
+
                 numberOfReceiveCharUsed += amoutOfDataFromOneDevice;
             }
         }
