@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local1="clr-namespace:BleTracking.ViewModel"
+             x:Class="BleTracking.Pages.BLETrackingPage"
+             BackgroundImageSource="bk2.PNG">
+    
+    <ContentPage.BindingContext>
+        <local1:DigitViewModel Digit="0"/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="#E0F7FA"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        
+            <StackLayout >
+                <Label Text="Вы можете отслеживать все BLE  устойтсва в диапазоне до 10 метров" Margin="40,40,0,0" TextColor="White" FontSize="Subtitle" FontAttributes="Italic"/>
+                <!--
+            <ListView x:Name="lvBluetoothBoundedDevices" ItemSelected="lvBluetoothBoundedDevices_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}" Detail="{Binding Address}" TextColor="#263238"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
+            <Label FontSize="Large" VerticalOptions="End" Text="{Binding Digit, StringFormat='Current value is:{0}'}" TextColor="Black"/>-->
+
+                <Frame HasShadow="True"
+                           CornerRadius="30"
+                           Margin="0, 25, 0, -20">
+                    <StackLayout>
+
+                        <Label Text="Найденные устройства"
+                        HorizontalOptions="CenterAndExpand" TextColor="#263238" FontSize="20"/>
+
+                        <CollectionView x:Name="collectionView" Margin="10"
+                                    SelectionMode="Single"
+                                    SelectionChanged="OnSelectionChanged">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                            </CollectionView.ItemsLayout>
+
+                        <!--<CollectionView.Footer>
+                                <Button Text="Поиск устройств" Clicked="Loader_Clicked" Margin="50, 10, 50, 0" BackgroundColor="LightBlue" TextColor="Black" CornerRadius="15"/>
+                            </CollectionView.Footer>-->
+                            
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <StackLayout>
+
+                                        <StackLayout Margin="0, 0, 0, 20">
+
+                                            <Label Text="{Binding Name}"
+                                           TextColor="#263238"
+                                           FontSize="Medium" />
+                                            <Label Text="{Binding Address, StringFormat='Адрес устройства : {0}'}"
+                                           TextColor="LightSlateGray"
+                                           FontSize="Small" />
+
+                                            <Label Text="{Binding Distance, StringFormat='Расстрояние : {0}m'}"
+                                           TextColor="LightSlateGray"
+                                           FontSize="Small" />
+                                        </StackLayout>
+
+
+                                    </StackLayout>
+
+
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+
+                    <Button Text="Поиск устройств" Clicked="Loader_Clicked" Margin="50, 10, 50, 40" BackgroundColor="LightBlue" TextColor="Black" CornerRadius="15"/>
+                </StackLayout>
+                </Frame>
+            </StackLayout>
+        
+        
+    </ContentPage.Content>
+</ContentPage>

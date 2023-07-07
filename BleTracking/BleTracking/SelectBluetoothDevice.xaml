@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BleTracking.SelectBluetoothRemoteDevicePage"
-             Title="Select device:">
+             Title="Выберите устройтсво:">
     <ContentPage.Content>
         <Frame HasShadow="True"
                            CornerRadius="10"
@@ -29,9 +29,9 @@
                         <RowDefinition Height="64" />
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Column="0" x:Name="btnEnableBluetooth" Text="Enable Bluetooth" 
+                    <Button Grid.Column="0" x:Name="btnEnableBluetooth" Text="Включить Bluetooth" 
                         IsEnabled="False" Clicked="btnEnableBluetooth_Clicked"/>
-                    <Button Grid.Column="1" x:Name="btnDisableBluetooth" Text="Disable Bluetooth" 
+                    <Button Grid.Column="1" x:Name="btnDisableBluetooth" Text="Выключить Bluetooth" 
                         IsEnabled="False" Clicked="btnDisableBluetooth_Clicked" />
                 </Grid>
             </StackLayout>

@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BleTracking.Pages
+namespace BleTracking
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ESP32Page : ContentPage
+    public partial class MainPage : Shell
     {
-        public ESP32Page()
+        public MainPage()
         {
             InitializeComponent();
         }
-
-        
     }
 }

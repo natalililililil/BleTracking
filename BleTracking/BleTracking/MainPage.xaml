@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BleTracking"
+             xmlns:localPages="clr-namespace:BleTracking.Pages"
+             x:Class="BleTracking.MainPage" BackgroundColor="#00ACC1">
+
+    <Shell.FlyoutHeader>
+        <local:HeaderContentView/>
+    </Shell.FlyoutHeader>
+    
+    <FlyoutItem Title="MyApp"
+                Shell.TabBarIsVisible="False"
+                FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Отслеживание" Icon="tracking.png" IsTabStop="True" ContentTemplate="{DataTemplate localPages:BLETrackingPage}"/>
+        <ShellContent Title="Терминал" Icon="list.png" IsTabStop="True" ContentTemplate="{DataTemplate local:SelectBluetoothRemoteDevicePage}"/>
+    </FlyoutItem>
+
+    <ShellContent Title="О приложении" Icon="info.png" ContentTemplate="{DataTemplate localPages:AboutPage}" />
+
+</Shell>

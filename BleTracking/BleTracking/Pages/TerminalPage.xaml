@@ -3,18 +3,94 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BleTracking.Pages.TerminalPage"
              xmlns:local1="clr-namespace:BleTracking.ViewModel"
-             Title="Terminal">
+             Title="Поиск">
     <ContentPage.BindingContext>
         <local1:DigitViewModel Digit="0"/>
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="#E0F7FA"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <Label Text="Найденные утройства: " FontSize="19" HorizontalOptions="CenterAndExpand" Margin="0,10,0,0" TextColor="#263238" FontAttributes="None"/>
+        <CollectionView x:Name="collectionView"
+                    SelectionMode="Single"
+                    SelectionChanged="collectionView_SelectionChanged"
+                    Margin="20, 10, 20, 0">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                               ItemSpacing="5" />
+
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame HasShadow="True"
+                           CornerRadius="30"
+                           Margin="0, 5, 0, 0" BackgroundColor="LightBlue">
+
+                        <StackLayout>
+
+                            <Label Text="{Binding Address, StringFormat='Адрес устройства : {0}'}"
+                                       TextColor="#263238"
+                                       FontSize="Small" />
+                            <Label Text="{Binding Name, StringFormat='Имя устройства : {0}'}"
+                                       TextColor="#263238"
+                                       FontSize="Small" />
+                            <Label Text="{Binding Distance, StringFormat='Расстояние устройства : {0} м'}"
+                                       TextColor="#263238"
+                                       FontSize="Small" />
+                        </StackLayout>
+
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Поиск и обновление данных" FontSize="19" HorizontalOptions="CenterAndExpand" Margin="20,20,20,10" TextColor="LightSteelBlue" FontAttributes="Bold"/>
+        <Image Source="loading3.gif" IsAnimationPlaying="True" WidthRequest="90" HeightRequest="70" Margin="20,0,20,100"/>
+    </StackLayout>
     
-    <ContentPage.Content>
+
+
+    
+
+    <!--<ContentPage.Content>
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
         <ScrollView>
             <StackLayout>
-                
+                <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
                 <Label Grid.Column="0" Grid.Row="0" VerticalOptions="Start" FontSize="Large"
                        Text="{Binding Digit, StringFormat='Data: {0}'}"/>
             </StackLayout>
         </ScrollView>
-    </ContentPage.Content>
+    </ContentPage.Content>-->
+    
 </ContentPage>

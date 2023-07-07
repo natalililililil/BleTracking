@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleTracking.Android", "BleTracking\BleTracking.Android\BleTracking.Android.csproj", "{173F7E5B-0025-4856-BBED-564D6A650DC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleTracking", "BleTracking\BleTracking\BleTracking.csproj", "{50563963-13FD-44ED-936F-A55D30F611B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleTracking", "BleTracking\BleTracking\BleTracking.csproj", "{50563963-13FD-44ED-936F-A55D30F611B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BleTracking.Pages.CurrentDevicePage"
+             xmlns:local1="clr-namespace:BleTracking.ViewModel"
+             BackgroundColor="GhostWhite">
+    <ContentPage.BindingContext>
+        <local1:DistanceViewModel Distance="Поиск"/>
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Label Text="Расстояние до устройтсва:" HorizontalOptions="Center" FontSize="23" Margin="35, 20, 0, 0" TextColor="Black"/>
+            <Image Source="cat5.gif" IsAnimationPlaying="True" WidthRequest="360" HeightRequest="370" Margin="0, 65, 0, 0"/>
+            <Label Text="{Binding Distance}" FontSize="50" AbsoluteLayout.LayoutBounds="0.5,0.35,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional"
+                   TextColor="LightSlateGray"/>
+        </AbsoluteLayout>
+        
+    </ContentPage.Content>
+
+
+   
+    <!--
+    
+     BackgroundColor="LightGray"
+    
+    <AbsoluteLayout>
+            <Label Text="Расстояние до устройтсва:" HorizontalOptions="Center" FontSize="25" Margin="20" TextColor="Black" />
+            <Image Source="cat.gif" IsAnimationPlaying="True" WidthRequest="360" HeightRequest="300" Margin="0, 60, 40, 20"/>
+            <Label Text="{Binding Distance}" FontSize="50" AbsoluteLayout.LayoutBounds="0.5,0.3,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        </AbsoluteLayout>
+    
+    
+    
+    
+    <StackLayout>
+            <Image Source="cat.gif" IsAnimationPlaying="True"/>
+            <Label Text="Расстояние до устройтсва:" HorizontalOptions="Center" FontSize="25" Margin="20" TextColor="Black" />
+
+            <Frame CornerRadius="100" Margin="40, 100, 40, 20" HorizontalOptions="Center" BackgroundColor="AliceBlue">
+                <Label Margin="1" FontSize="90" Text="{Binding Distance}" TextColor="LightSlateGray" VerticalOptions="Center"/>
+            </Frame>
+            
+        </StackLayout>
+    
+    <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
+    
+    <Label Text="{Binding Id}"
+                                       FontSize="Medium" 
+                                       TextColor="#263238"/>
+
+        <Label Text="{Binding Address}"
+                                       TextColor="Silver"
+                                       FontSize="Small" />
+        <Label Text="{Binding Name}"
+                                       TextColor="Silver"
+                                       FontSize="Small" />
+        <Label Text="{Binding Distance}"
+                                       TextColor="Silver"
+                                       FontSize="Small" />
+        <Label Text="{Binding RssiValues}"
+                                       TextColor="Silver"
+                                       FontSize="Small" />
+    
+            <Label x:Name="Distance"  FontSize="Large" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
+    
+    <CollectionView x:Name="collectionView"
+                    Margin="5">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical"
+                               ItemSpacing="5" />
+
+        </CollectionView.ItemsLayout>
+
+        
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <StackLayout>
+                    <Label Text="Найденные устройства:"/>
+                    <StackLayout>
+                        <Label Text="{Binding Id}"
+                                       FontSize="Medium" 
+                                       TextColor="#263238"/>
+
+                        <Label Text="{Binding Address}"
+                                       TextColor="Silver"
+                                       FontSize="Small" />
+                        <Label Text="{Binding Name}"
+                                       TextColor="Silver"
+                                       FontSize="Small" />
+                        <Label Text="{Binding Distance}"
+                                       TextColor="Silver"
+                                       FontSize="Small" />
+                        <Label Text="{Binding RssiValues}"
+                                       TextColor="Silver"
+                                       FontSize="Small" />
+                    </StackLayout>
+                </StackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+
+    </CollectionView>-->
+    
+    
+</ContentPage>
