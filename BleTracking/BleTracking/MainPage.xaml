@@ -12,11 +12,10 @@
     <FlyoutItem Title="MyApp"
                 Shell.TabBarIsVisible="False"
                 FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="BLE Tracking" Icon="tracking.png" IsTabStop="True" ContentTemplate="{DataTemplate localPages:BLETrackingPage}"/>
-        <ShellContent Title="All Devices" Icon="list.png" IsTabStop="True" ContentTemplate="{DataTemplate local:SelectBluetoothRemoteDevicePage}"/>
-        <ShellContent Title="Account" Icon="ic_action_person.png" IsTabStop="True" ContentTemplate="{DataTemplate localPages:AccountPage}"/>
+        <ShellContent Title="Отслеживание" Icon="tracking.png" IsTabStop="True" ContentTemplate="{DataTemplate localPages:BLETrackingPage}"/>
+        <ShellContent Title="Терминал" Icon="list.png" IsTabStop="True" ContentTemplate="{DataTemplate local:SelectBluetoothRemoteDevicePage}"/>
     </FlyoutItem>
 
-    <ShellContent Title="About" Icon="info.png" ContentTemplate="{DataTemplate localPages:AboutPage}" />
+    <ShellContent Title="О приложении" Icon="info.png" ContentTemplate="{DataTemplate localPages:AboutPage}" />
 
 </Shell>

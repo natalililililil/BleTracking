@@ -15,31 +15,32 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Image Aspect="AspectFill" 
-                   Source="gradient3.jpg"
+                   Source="bk2.PNG"
                    Grid.ColumnSpan="5"
                    Grid.RowSpan="4"
                    Opacity="0.6"/>
-            <Image Source="user2.png" HeightRequest="80" WidthRequest="80" 
+            <Image Source="icon9.png" HeightRequest="150" WidthRequest="100" 
                    Grid.Column="1"
                    Grid.Row="1"
                    HorizontalOptions="Start"
                    VerticalOptions="End"/>
 
-            <StackLayout VerticalOptions="CenterAndExpand" Grid.Row="1" Margin="10,0,0,0"
+            <StackLayout VerticalOptions="CenterAndExpand" Grid.Row="1" Margin="0,0,0,0"
                          Grid.Column="2" Grid.ColumnSpan="3" Orientation="Vertical">
                 <Label HorizontalTextAlignment="Start"
                        VerticalTextAlignment="Center"
-                       TextColor="White"
-                       Text="Xamarin"/>
+                       TextColor="#263238"
+                       Text="Сканер"
+                       FontSize="Medium"/>
                 <Label HorizontalTextAlignment="Start"
                        VerticalTextAlignment="Center" 
-                       TextColor="White" 
-                       Text="natalizuk09@gmai.com"/>
+                       TextColor="#263238" 
+                       Text="Bluetooth Low Energy"/>
             </StackLayout>
         </Grid>
     </ContentView.Content>

@@ -6,20 +6,19 @@
              mc:Ignorable="d"
              x:Class="BleTracking.DigitPage"
              xmlns:local1="clr-namespace:BleTracking.ViewModel"
-             Title="Terminal">
+             Title="Терминал">
     
     <ContentPage.BindingContext>
         <local1:DigitViewModel Digit="0"/>
     </ContentPage.BindingContext>
-    
-    <ContentPage.Content>
 
-        <StackLayout>
-            <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
-            <Label FontSize="Large" VerticalOptions="End" Text="{Binding Digit, StringFormat='Current value is:{0}'}" TextColor="Black"/>
-        </StackLayout>
-        
-             
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="20,20,20,20">
+                <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="{Binding ConnectionStateBackgroundColor}" FontSize="Large" VerticalOptions="Center"/>
+                <Label FontSize="16" VerticalOptions="End" Text="{Binding Digit, StringFormat='Полученные данные: {0}'}" TextColor="Black"/>
+            </StackLayout>
+        </ScrollView>                    
     </ContentPage.Content>
     
 </ContentPage>

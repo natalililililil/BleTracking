@@ -182,7 +182,7 @@ namespace BleTracking.Pages
         {
             AddNewRssiToDB(rssi, device.Id);
 
-            device.Distance = ConvertRssiToDistance(-69, rssi, 3);
+            device.Distance = Math.Round(ConvertRssiToDistance(-69, rssi, 3), 2);
 
             rssiList.Add(rssiModel);
             device.RssiValues = rssiList;
@@ -197,7 +197,7 @@ namespace BleTracking.Pages
 
             deviceModel.Address = device.Address;
             deviceModel.Name = device.Name;
-            deviceModel.Distance = ConvertRssiToDistance(-69, rssiModel.FilteredRssi, 3);
+            deviceModel.Distance = Math.Round(ConvertRssiToDistance(-69, rssiModel.FilteredRssi, 3), 2);
 
             Task.Run(() => SaveDeviceToDB(deviceModel));
         }
@@ -245,7 +245,7 @@ namespace BleTracking.Pages
 
             deviceModel.Address = device.Address;
             deviceModel.Name = device.Name;
-            deviceModel.Distance = ConvertRssiToDistance(-69, rssiModel.FilteredRssi, 3);
+            deviceModel.Distance = Math.Round(ConvertRssiToDistance(-69, rssiModel.FilteredRssi, 3), 2);
             //deviceModel.RssiValues.Add(rssiModel);
 
 
@@ -276,7 +276,7 @@ namespace BleTracking.Pages
 
         private double ConvertRssiToDistance(int measuredPower, double rssi, int n)
         {
-            double dist = Math.Pow(10.0, ((measuredPower - rssi) / (double)(10 * n)));
+            double dist = Math.Pow(10.0, ((measuredPower + rssi) / (10 * n)));
             return dist;
         }
 

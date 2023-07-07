@@ -117,7 +117,6 @@ namespace BleTracking.Pages
 
                 return NotConnected;
             }
-
         }
 
         private async void Loader_Clicked(object sender, EventArgs e)
@@ -143,8 +142,6 @@ namespace BleTracking.Pages
                     if (connected)
                         await Navigation.PushAsync(new CurrentDevicePage(device.Address, device.Id));
                 }               
-                //await Shell.Current.GoToAsync(
-                //    $"{nameof(CurrentDevicePage)}?{nameof(CurrentDevicePage.ItemId)}={device.Id.ToString()}");
             }
         }
         

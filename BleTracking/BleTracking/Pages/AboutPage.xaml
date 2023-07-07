@@ -3,10 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BleTracking.Pages.AboutPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="About Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Image Source="ble.jpg" IsAnimationPlaying="True" WidthRequest="200" HeightRequest="220"/>
+                <Label Text="О приложении" Margin="20, 20, 20, 0" FontSize="Large" TextColor="#263238" FontAttributes="Bold"/>
+                <Label Text="Сканер BLE устройств является програм- мным обеспечением, которое позволяет автоматически обнаруживать устройства, работающие на технологии Bluetooth Low Energy, без необходимости ручного поиска, что сокращает количество времени и усилий, которые могут быть затрачены на поиск устройств."
+                   Margin="20, 5, 10, 0" FontSize="16" TextColor="#263238" />
+                <Label Text="BLE технология отличается от традицион- ной Bluetooth тем, что потребляет меньше энергии. " 
+                   Margin="20, 5, 10, 0" FontSize="16" TextColor="#263238" />
+                <Label Text="Кроме того, сканер может обнаруживать большое количество устройств одновре- менно. " 
+                   Margin="20, 5, 10, 0" FontSize="16" TextColor="#263238" />
+                <Label Text="Данное приложение работает в паре с микроконтроллером ESP32." 
+                   Margin="20, 5, 10, 20" FontSize="16" TextColor="#263238" />
+
+            </StackLayout>
+        </ScrollView>
+        
     </ContentPage.Content>
 </ContentPage>

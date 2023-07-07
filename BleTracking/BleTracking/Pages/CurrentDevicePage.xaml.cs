@@ -90,8 +90,8 @@ namespace BleTracking.Pages
 
                 CreateListOfBLEDevices(tempReceiveData);
 
-                var tempDevice = await App.BLETrackingDB.GetDevicesAsync(Address);
-                model.Distance = tempDevice.Distance.ToString();
+                //var tempDevice = await App.BLETrackingDB.GetDevicesAsync(Address);
+                //model.Distance = tempDevice.Distance.ToString();
                 //distanceViewModel.SetRecived();
                 //collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
                 model.SetRecived();
@@ -140,7 +140,9 @@ namespace BleTracking.Pages
                 string device = receiveData.ToString().Substring(0, amoutOfDataFromOneDevice);
                 var newDevice = TramsformStringToBLEDeviceInstance(device);
                 //AddNewBLEDevice(newDevice);
-                Add(newDevice);
+
+                if (newDevice.Address == Address)
+                    Add(newDevice);
 
                 numberOfReceiveCharUsed += amoutOfDataFromOneDevice;
             }
@@ -222,11 +224,14 @@ namespace BleTracking.Pages
             AddNewRssiToDB(device.Rssi[0], devices[0].Id);
         }
 
-        private void UpdateDeviceAndRssiData(DeviceModel device, int rssi)
+        private async void UpdateDeviceAndRssiData(DeviceModel device, int rssi)
         {
+            DistanceViewModel model = (DistanceViewModel)BindingContext;
             AddNewRssiToDB(rssi, device.Id);
 
-            device.Distance = ConvertRssiToDistance(-69, rssi, 3);
+            device.Distance = Math.Round(ConvertRssiToDistance(-69, rssi, 3), 2);
+            model.Distance = device.Distance.ToString() + "м";
+            //model.Distance = tempDevice.Distance.ToString();
 
             rssiList.Add(rssiModel);
             device.RssiValues = rssiList;
@@ -241,7 +246,7 @@ namespace BleTracking.Pages
 
             deviceModel.Address = device.Address;
             deviceModel.Name = device.Name;
-            deviceModel.Distance = ConvertRssiToDistance(-69, rssiModel.FilteredRssi, 3);
+            deviceModel.Distance = (int)ConvertRssiToDistance(-69, rssiModel.FilteredRssi, 3);
 
             //Distance.Text = deviceModel.Distance.ToString();
             Task.Run(() => SaveDeviceToDB(deviceModel));
@@ -276,7 +281,7 @@ namespace BleTracking.Pages
 
         private double ConvertRssiToDistance(int measuredPower, double rssi, int n)
         {
-            double dist = Math.Pow(10.0, ((measuredPower - rssi) / (double)(10 * n)));
+            double dist = Math.Pow(10.0, ((measuredPower + rssi) / (10 * n)));
             return dist;
         }
 

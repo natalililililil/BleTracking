@@ -2,21 +2,47 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BleTracking.Pages.CurrentDevicePage"
-             xmlns:local1="clr-namespace:BleTracking.ViewModel">
+             xmlns:local1="clr-namespace:BleTracking.ViewModel"
+             BackgroundColor="GhostWhite">
     <ContentPage.BindingContext>
-        <local1:DistanceViewModel Distance="0"/>
+        <local1:DistanceViewModel Distance="Поиск"/>
     </ContentPage.BindingContext>
 
+
     <ContentPage.Content>
-        <StackLayout>
-            
-            <Label FontSize="Large" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="{Binding Distance}" TextColor="Black"/>
-        </StackLayout>
+        <AbsoluteLayout>
+            <Label Text="Расстояние до устройтсва:" HorizontalOptions="Center" FontSize="23" Margin="35, 20, 0, 0" TextColor="Black"/>
+            <Image Source="cat5.gif" IsAnimationPlaying="True" WidthRequest="360" HeightRequest="370" Margin="0, 65, 0, 0"/>
+            <Label Text="{Binding Distance}" FontSize="50" AbsoluteLayout.LayoutBounds="0.5,0.35,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional"
+                   TextColor="LightSlateGray"/>
+        </AbsoluteLayout>
+        
     </ContentPage.Content>
 
 
    
     <!--
+    
+     BackgroundColor="LightGray"
+    
+    <AbsoluteLayout>
+            <Label Text="Расстояние до устройтсва:" HorizontalOptions="Center" FontSize="25" Margin="20" TextColor="Black" />
+            <Image Source="cat.gif" IsAnimationPlaying="True" WidthRequest="360" HeightRequest="300" Margin="0, 60, 40, 20"/>
+            <Label Text="{Binding Distance}" FontSize="50" AbsoluteLayout.LayoutBounds="0.5,0.3,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        </AbsoluteLayout>
+    
+    
+    
+    
+    <StackLayout>
+            <Image Source="cat.gif" IsAnimationPlaying="True"/>
+            <Label Text="Расстояние до устройтсва:" HorizontalOptions="Center" FontSize="25" Margin="20" TextColor="Black" />
+
+            <Frame CornerRadius="100" Margin="40, 100, 40, 20" HorizontalOptions="Center" BackgroundColor="AliceBlue">
+                <Label Margin="1" FontSize="90" Text="{Binding Distance}" TextColor="LightSlateGray" VerticalOptions="Center"/>
+            </Frame>
+            
+        </StackLayout>
     
     <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
     
