@@ -1,119 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-
-namespace BleTracking.ViewModel
+﻿namespace BleTracking.ViewModel
 {
-    using Plugin.BluetoothClassic.Abstractions;
-
     using System.ComponentModel;
-    using System.Drawing;
 
-    internal class DistanceViewModel : INotifyPropertyChanged
+    internal class DistanceViewModel : ViewModel, INotifyPropertyChanged
     {
         public enum Properties
         {
             Distance,
-            //ConnectionState
         }
 
-        public const string DigitDefault = "";
-        private string _digit = DigitDefault;
-        private List<byte> _digitList = new List<byte>();
-        private ConnectionState _connectionState;
-        private Color _connectionStateBackgroundColor;
+        private string _distance = DigitAndDistanceDefault;
 
         public DistanceViewModel()
         {
             SetRecived();
-            //UpdateConnectionStateBackgroundColor();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        internal bool Reciving { get; set; }
 
         public string Distance
         {
             get
             {
-                return _digit;
+                return _distance;
             }
             set
             {
-                if (_digit != value)
+                if (_distance != value)
                 {
-                    _digit = value;
+                    _distance = value;
 
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Distance"));
                 }
             }
-        }
-
-        //public ConnectionState ConnectionState
-        //{
-        //    get
-        //    {
-        //        return _connectionState;
-        //    }
-        //    set
-        //    {
-        //        if (_connectionState != value)
-        //        {
-        //            _connectionState = value;
-        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ConnectionState"));
-        //            UpdateConnectionStateBackgroundColor();
-        //        }
-        //    }
-        //}
-
-        //private void UpdateConnectionStateBackgroundColor()
-        //{
-        //    switch (ConnectionState)
-        //    {
-        //        case ConnectionState.Created:
-        //        case ConnectionState.Initializing:
-        //        case ConnectionState.Connecting:
-        //            ConnectionStateBackgroundColor = Color.Orange;
-        //            break;
-        //        case ConnectionState.Connected:
-        //            ConnectionStateBackgroundColor = Color.SeaGreen;
-        //            break;
-        //        case ConnectionState.ErrorOccured:
-        //        case ConnectionState.Reconnecting:
-        //            ConnectionStateBackgroundColor = Color.Red;
-        //            break;
-        //        default:
-        //            ConnectionStateBackgroundColor = Color.Black;
-        //            break;
-        //    }
-        //}
-
-        //public Color ConnectionStateBackgroundColor
-        //{
-        //    get
-        //    {
-        //        return _connectionStateBackgroundColor;
-        //    }
-        //    set
-        //    {
-        //        if (_connectionStateBackgroundColor != value)
-        //        {
-        //            _connectionStateBackgroundColor = value;
-        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ConnectionStateBackgroundColor"));
-        //        }
-        //    }
-        //}
-
-        internal void SetReciving()
-        {
-            Reciving = true;
-        }
-
-        internal void SetRecived()
-        {
-            Reciving = false;
         }
     }
 }

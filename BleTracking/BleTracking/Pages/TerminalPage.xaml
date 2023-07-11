@@ -65,32 +65,4 @@
         <Label Text="Поиск и обновление данных" FontSize="19" HorizontalOptions="CenterAndExpand" Margin="20,20,20,10" TextColor="LightSteelBlue" FontAttributes="Bold"/>
         <Image Source="loading3.gif" IsAnimationPlaying="True" WidthRequest="90" HeightRequest="70" Margin="20,0,20,100"/>
     </StackLayout>
-    
-
-
-    
-
-    <!--<ContentPage.Content>
-    
-    
-    
-    
-    
-    
-    
-    
-   
-    
-    
-    
-    
-        <ScrollView>
-            <StackLayout>
-                <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
-                <Label Grid.Column="0" Grid.Row="0" VerticalOptions="Start" FontSize="Large"
-                       Text="{Binding Digit, StringFormat='Data: {0}'}"/>
-            </StackLayout>
-        </ScrollView>
-    </ContentPage.Content>-->
-    
 </ContentPage>

@@ -71,22 +71,12 @@
             BluetoothDeviceModel bluetoothDeviceModel = e.SelectedItem as BluetoothDeviceModel;
             lvBluetoothBoundedDevices.SelectedItem = null;
 
-            //await DisplayAlert("Подтвердить действие", "Вы хотите удалить элемент?", "Да", "Нет");
-
             if (bluetoothDeviceModel != null)
             {
                 var connected = await TryConnect(bluetoothDeviceModel);
-                //await Navigation.PushAsync(new LoadingPage());
 
                 if (connected)
                     await Navigation.PushAsync(new DigitPage(bluetoothDeviceModel));
-                //if (connected)
-                //{
-                //    if (bluetoothDeviceModel.Address == "C8:F0:9E:51:40:DA")
-                //        await Navigation.PushAsync(new BLEListPage());
-                //    else
-                //        await Navigation.PushAsync(new DigitPage());
-                //}
             }
         }
 

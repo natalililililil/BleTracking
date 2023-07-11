@@ -9,7 +9,7 @@ namespace BleTracking.ViewModel
     using System.ComponentModel;
     using System.Drawing;
 
-    public class DigitViewModel : INotifyPropertyChanged
+    internal class DigitViewModel : ViewModel, INotifyPropertyChanged
     {
         public enum Properties
         {
@@ -17,9 +17,7 @@ namespace BleTracking.ViewModel
             ConnectionState
         }
 
-        public const string DigitDefault = "";
-        private string _digit = DigitDefault;
-        private List<byte> _digitList = new List<byte>();
+        private string _digit = DigitAndDistanceDefault;
         private ConnectionState _connectionState;
         private Color _connectionStateBackgroundColor;
 
@@ -31,25 +29,8 @@ namespace BleTracking.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        internal bool Reciving { get; set; }
-
         public string Digit
         {
-            //get
-            //{
-            //    return _digitList;
-            //}
-            //set
-            //{
-
-            //    if (_digitList != value)
-            //    {
-            //        _digitList.Add(_digit);
-            //        //_digit = value;
-
-            //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Digit"));
-            //    }
-            //}
             get
             {
                 return _digit;
@@ -118,16 +99,6 @@ namespace BleTracking.ViewModel
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ConnectionStateBackgroundColor"));
                 }
             }
-        }
-
-        internal void SetReciving()
-        {
-            Reciving = true;
-        }
-
-        internal void SetRecived()
-        {
-            Reciving = false;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace BleTracking
     public partial class App : Application
     {
         static BLETrackingDB db;
+        static string dbName = "BLETrackingDB.db3";
 
         public static BLETrackingDB BLETrackingDB
         {
@@ -18,7 +19,7 @@ namespace BleTracking
                 if (db == null)
                 {
                     db = new BLETrackingDB(
-                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BLETrackingDB.db3"));
+                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dbName));
                 }
                 return db;
             }
@@ -28,19 +29,6 @@ namespace BleTracking
         {
             InitializeComponent();
             MainPage = new MainPage();
-            //MainPage = new NavigationPage(new SelectBluetoothRemoteDevicePage());
-        }
-
-        protected override void OnStart()
-        {
-        }
-
-        protected override void OnSleep()
-        {
-        }
-
-        protected override void OnResume()
-        {
         }
     }
 }

@@ -7,7 +7,7 @@
              x:Class="BleTracking.DigitPage"
              xmlns:local1="clr-namespace:BleTracking.ViewModel"
              Title="Терминал">
-    
+
     <ContentPage.BindingContext>
         <local1:DigitViewModel Digit="0"/>
     </ContentPage.BindingContext>
@@ -18,41 +18,7 @@
                 <Label x:Name="lblConnectionStatus" Text="{Binding ConnectionState, StringFormat='{0}'}" TextColor="{Binding ConnectionStateBackgroundColor}" FontSize="Large" VerticalOptions="Center"/>
                 <Label FontSize="16" VerticalOptions="End" Text="{Binding Digit, StringFormat='Полученные данные: {0}'}" TextColor="Black"/>
             </StackLayout>
-        </ScrollView>                    
-    </ContentPage.Content>
-    
-</ContentPage>
-
-
-<!-- 
-        <ScrollView>
-            <StackLayout VerticalOptions="FillAndExpand">
-                <StackLayout 
-                    VerticalOptions="Start" 
-                    HorizontalOptions="Fill"
-                    BackgroundColor="{Binding ConnectionStateBackgroundColor}">
-                    <Label x:Name="lblConnectionStatus"
-                           HeightRequest="32"
-                           TextColor="White"
-                           FontSize="Medium"
-                           Text="{Binding ConnectionState, StringFormat='{0}'}" 
-                           VerticalOptions="Center"
-                           HorizontalOptions="Start">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
-                                Binding="{Binding ConnectionState}" Value="Connected">
-                                
-                                <Setter Property="TextColor" Value="Brown" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </StackLayout>
-
-                <StackLayout VerticalOptions="StartAndExpand">
-                    <Label Grid.Column="0" Grid.Row="0" VerticalOptions="Start" FontSize="Large"
-                       Text="{Binding Digit, StringFormat='Current value is: {0}'}"/>
-                </StackLayout>
-            </StackLayout>
         </ScrollView>
-       
-        -->     
+    </ContentPage.Content>
+
+</ContentPage>    

@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Rg.Plugins.Popup.Services;
-using Rg.Plugins.Popup.Extensions;
-using Rg.Plugins.Popup.Contracts;
-using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Events;
 using Plugin.BluetoothClassic.Abstractions;
-using BleTracking.ViewModel;
 using BleTracking.Models;
 
 namespace BleTracking.Pages
@@ -21,33 +13,13 @@ namespace BleTracking.Pages
     public partial class BLETrackingPage : ContentPage
     {
         private readonly IBluetoothAdapter _bluetoothAdapter;
-        private BluetoothDeviceModel microcontrollerESP = new BluetoothDeviceModel("C8:F0:9E:51:40:DA", "CL-BLE-40D8");
+        private const string microcontrollerName = "CL-BLE-40D8";
+        private const string microcontrollerAddress = "C8:F0:9E:51:40:DA";
+        private BluetoothDeviceModel microcontrollerESP = new BluetoothDeviceModel(microcontrollerAddress, microcontrollerName);
         public BLETrackingPage()
         {
-            //Task.Run(() => ShowReceiveData());
             _bluetoothAdapter = DependencyService.Resolve<IBluetoothAdapter>();
             InitializeComponent();                       
-        }
-
-        private async Task ShowReceiveData()
-        {
-            collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
-        }
-        private void RefreshUI()
-        {
-            if (_bluetoothAdapter.Enabled)
-            {
-                
-                //btnDisableBluetooth.IsEnabled = true;
-                //btnEnableBluetooth.IsEnabled = false;
-                //lvBluetoothBoundedDevices.ItemsSource = _bluetoothAdapter.BondedDevices;
-            }
-            else
-            {
-                //btnDisableBluetooth.IsEnabled = false;
-                //btnEnableBluetooth.IsEnabled = true;
-                //lvBluetoothBoundedDevices.ItemsSource = null;
-            }
         }
 
         protected override async void OnAppearing()
@@ -60,7 +32,6 @@ namespace BleTracking.Pages
             }
             collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
 
-            RefreshUI();
             await DisconnectIfConnectedAsync();
         }
 
@@ -121,12 +92,7 @@ namespace BleTracking.Pages
 
         private async void Loader_Clicked(object sender, EventArgs e)
         {           
-            ConnectToESP();
-            //var loadingPage = new ConnectionPage();
-
-            //await PopupNavigation.Instance.PushAsync(loadingPage);
-            //await Task.Delay(2000);
-            //await PopupNavigation.Instance.RemovePageAsync(loadingPage);
+            await ConnectToESP();
         }
 
         private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using BleTracking.ESP32Data;
+using BleTracking.Filter;
 using BleTracking.Models;
 using BleTracking.ViewModel;
 using Plugin.BluetoothClassic.Abstractions;
@@ -17,14 +18,12 @@ namespace BleTracking.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CurrentDevicePage : ContentPage 
     {
-        private List<BLEDevice> bLEDevices = new List<BLEDevice>();
         StringBuilder receiveData = new StringBuilder();
         int numberOfReceiveCharUsed;
         DeviceModel deviceModel = new DeviceModel();
         RssiModel rssiModel = new RssiModel();
         List<RssiModel> rssiList = new List<RssiModel>();
         StringBuilder tempModelDistance = new StringBuilder();
-        private int Id { get; set; }
         private string Address { get; set; }
 
         public CurrentDevicePage(string address, int id)
@@ -35,65 +34,30 @@ namespace BleTracking.Pages
             distanceViewModel.PropertyChanged += Model_PropertyChanged;
 
             if (App.CurrentBluetoothConnection != null)
-            {
-                //App.CurrentBluetoothConnection.OnStateChanged += CurrentBluetoothConnection_OnStateChanged;
                 App.CurrentBluetoothConnection.OnRecived += CurrentBluetoothConnection_OnRecived;
-            }
 
             Address = address;
-            Id = id;
         }
 
-        //protected override async void OnAppearing()
-        //{
-
-        //    //collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
-        //    //var tempDevice =  await App.BLETrackingDB.GetDevicesAsync(Address);
-        //    //distance.Text = deviceModel.Distance.ToString();
-        //    base.OnAppearing();
-        //}
-
-        //private void CurrentBluetoothConnection_OnStateChanged(object sender, StateChangedEventArgs stateChangedEventArgs)
-        //{
-        //    var model = (DistanceViewModel)BindingContext;
-        //    if (model != null)
-        //    {
-        //        model.ConnectionState = stateChangedEventArgs.ConnectionState;
-        //    }
-        //}
-
-        public async void CurrentBluetoothConnection_OnRecived(object sender, Plugin.BluetoothClassic.Abstractions.RecivedEventArgs recivedEventArgs)
+        public void CurrentBluetoothConnection_OnRecived(object sender, Plugin.BluetoothClassic.Abstractions.RecivedEventArgs recivedEventArgs)
         {
             DistanceViewModel model = (DistanceViewModel)BindingContext;
             StringBuilder tempReceiveData = new StringBuilder();
 
-            //DistanceViewModel distanceViewModel = BindingContext as DistanceViewModel;
-
             if (model != null)
             {
-                //distance.Text = "8".ToString();
-                //distanceViewModel.SetReciving();
                 model.SetReciving();
-                //Distance.Text = "hi";
                 for (int index = 0; index < recivedEventArgs.Buffer.Length; index++)
                 {
                     byte value = recivedEventArgs.Buffer.ToArray()[index];
                     byte[] valueArray = new byte[] { value };
-                    //distanceViewModel.Digit += ConvertASCIIToString(valueArray);
                     tempModelDistance.Append(ConvertASCIIToString(valueArray));
 
                     if (index == recivedEventArgs.Buffer.Length - 1)
                         tempReceiveData.Append(tempModelDistance);
-                    //tempReceiveData.Append(distanceViewModel.Digit);
-
                 }
 
                 CreateListOfBLEDevices(tempReceiveData);
-
-                //var tempDevice = await App.BLETrackingDB.GetDevicesAsync(Address);
-                //model.Distance = tempDevice.Distance.ToString();
-                //distanceViewModel.SetRecived();
-                //collectionView.ItemsSource = await App.BLETrackingDB.GetDevicesAsync();
                 model.SetRecived();
             }  
         }
@@ -113,18 +77,10 @@ namespace BleTracking.Pages
         }
         private void TransmitCurrentDigit()
         {
-            //List<string> list = new List<string>();
             DistanceViewModel model = (DistanceViewModel)BindingContext;
             if (model != null && !model.Reciving)
             {
-                //foreach (var item in model.Digit)
-                //{
-                //    App.CurrentBluetoothConnection.Transmit(new Memory<byte>(new byte[] { item }));
-                //}
 
-
-                //App.CurrentBluetoothConnection.Transmit(new Memory<byte>(new byte[] { model.Digit }));
-                //App.CurrentBluetoothConnection.Transmit(new Memory<byte>(new byte[] { model.Digit }));
             }
         }
 
@@ -139,7 +95,6 @@ namespace BleTracking.Pages
             {
                 string device = receiveData.ToString().Substring(0, amoutOfDataFromOneDevice);
                 var newDevice = TramsformStringToBLEDeviceInstance(device);
-                //AddNewBLEDevice(newDevice);
 
                 if (newDevice.Address == Address)
                     Add(newDevice);
@@ -192,9 +147,8 @@ namespace BleTracking.Pages
                 device.Rssi = tempRssiList;
 
                 return device;
-                //bLEDevices.Add(device);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -224,14 +178,13 @@ namespace BleTracking.Pages
             AddNewRssiToDB(device.Rssi[0], devices[0].Id);
         }
 
-        private async void UpdateDeviceAndRssiData(DeviceModel device, int rssi)
+        private void UpdateDeviceAndRssiData(DeviceModel device, int rssi)
         {
             DistanceViewModel model = (DistanceViewModel)BindingContext;
             AddNewRssiToDB(rssi, device.Id);
 
             device.Distance = Math.Round(ConvertRssiToDistance(-69, rssi, 3), 2);
             model.Distance = device.Distance.ToString() + "м";
-            //model.Distance = tempDevice.Distance.ToString();
 
             rssiList.Add(rssiModel);
             device.RssiValues = rssiList;
@@ -248,35 +201,16 @@ namespace BleTracking.Pages
             deviceModel.Name = device.Name;
             deviceModel.Distance = (int)ConvertRssiToDistance(-69, rssiModel.FilteredRssi, 3);
 
-            //Distance.Text = deviceModel.Distance.ToString();
             Task.Run(() => SaveDeviceToDB(deviceModel));
         }
 
         private void AddNewRssiToDB(int rssi, int id)
         {
             rssiModel.ReceivedRssi = rssi;
-            rssiModel.FilteredRssi = KalmanFilter(rssi, 0.25);
+            rssiModel.FilteredRssi = KalmalFilter.GetFileterData(rssi, 0.25);
             rssiModel.DateTime = DateTime.Now;
             rssiModel.DeviceId = id;
             Task.Run(() => SaveRssiToDB(rssiModel));
-        }
-
-        double Q = 0.05; // скорость реакции на изменение (подобрать вручную)
-        double P0 = 0.0;
-        double Pk = 1.0;
-        double X0 = 0.0;
-        double X = 0.0;
-        double F = 1.0;
-        double H = 1.0;
-        private double KalmanFilter(int rssi, double R)
-        {
-            X0 = F * X;
-            P0 = F * Pk * F + Q;
-
-            double K = H * P0 / (H * P0 * H + R);
-            X = X0 + K * (rssi - H * X0);
-            Pk = (1 - K * H) * P0;
-            return X;
         }
 
         private double ConvertRssiToDistance(int measuredPower, double rssi, int n)
@@ -287,33 +221,15 @@ namespace BleTracking.Pages
 
         private async Task SaveDeviceToDB(DeviceModel model)
         {
-            //DeviceModel model = new DeviceModel() { Address = "3", Name = "ddsd", PositonId = 32 };
-            //DeviceModel note = (DeviceModel)BindingContext;
-            //note.Date = DateTime.Now;
-
             if (!string.IsNullOrWhiteSpace(model.Address))
             {
                 await App.BLETrackingDB.SaveDataAsync(model);
             }
-
-            //await Navigation.PushAsync(new TerminalPage());
-            //await Shell.Current.GoToAsync("..");
-            //await Shell.Current.GoToAsync("//TerminalPage");
-            //await Navigation.PushAsync(new BLETrackingPage());
-
         }
 
         private async Task SaveRssiToDB(RssiModel model)
         {
-            //DeviceModel model = new DeviceModel() { Address = "3", Name = "ddsd", PositonId = 32 };
-            //DeviceModel note = (DeviceModel)BindingContext;
-            //note.Date = DateTime.Now;
-
             await App.BLETrackingDB.SaveDataAsync(model);
-            //await Shell.Current.GoToAsync("..");
-            //await Shell.Current.GoToAsync("//TerminalPage");
-            //await Navigation.PushAsync(new BLETrackingPage());
-
         }
     }
 }

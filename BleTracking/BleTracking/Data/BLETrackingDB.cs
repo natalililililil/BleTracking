@@ -27,7 +27,6 @@ namespace BleTracking.Data
 
         public Task<DeviceModel> GetDevicesAsync(int id)
         {
-            // получение конкретной записки
             return db.Table<DeviceModel>()
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
@@ -35,7 +34,6 @@ namespace BleTracking.Data
 
         public Task<DeviceModel> GetDevicesAsync(string address)
         {
-            // получение конкретной записки
             return db.Table<DeviceModel>()
                 .Where(i => i.Address == address)
                 .FirstOrDefaultAsync();
@@ -43,13 +41,11 @@ namespace BleTracking.Data
 
         public Task<List<RssiModel>> GetRssiValuesAsync()
         {
-            // получения списка с записями
             return db.Table<RssiModel>().ToListAsync();
         }
 
         public Task<RssiModel> GetRssiValuesAsync(int id)
         {
-            // получение конкретной записки
             return db.Table<RssiModel>()
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
